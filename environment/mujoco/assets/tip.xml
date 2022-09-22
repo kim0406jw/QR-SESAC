@@ -1,0 +1,104 @@
+<mujoco model="TripleInvertedPendulum">
+    <compiler angle="radian" balanceinertia="true" discardvisual="false" meshdir="./meshes/" texturedir="./textures"/>
+    <size njmax="500" nconmax="100" />
+
+    <option timestep="0.015">
+		<flag warmstart="enable" />
+	</option>
+
+    <!-- Default parameters -->
+    <default class="arm">
+        <joint damping='0.001'/>
+    </default>
+
+    <!-- Assets -->
+    <asset>
+        <include file="./include/tip/assets.xml"/>
+        <include file="./include/world/assets_white.xml"/>
+        <material name="rail" shininess="0.03" specular="0.4" reflectance="100" rgba="0.01 0.01 0.01 1"/>
+        <material name="abolt" shininess="0.03" specular="0.4" reflectance="50" rgba="0.8 0.8 0.8 1"/>
+        <material name="3dpart" shininess="0.0" specular="0.0" reflectance="0"/>
+    </asset>
+
+    <!-- World body -->
+
+    <worldbody>
+        <!-- World -->
+        <light directional="true" ambient="0.2 0.2 0.2" diffuse="0.8 0.8 0.8" specular="0.3 0.3 0.3" castshadow="false" pos="0 3 3" dir="0 0 -1" name="light0" />
+
+        <!-- Robot -->
+        <body name="link0" pos="0.3 -0.2 0.07" quat="0.7071067811865476 0.7071067811865476 0 0">
+            <geom type="mesh" material="rail" mesh="base_link" />
+            <geom type="mesh" rgba="0 0 1 1" mesh="right_zip" material="3dpart"/>
+            <geom type="mesh" rgba="0.921 0.921 0.921 1" mesh="support1" />
+            <geom type="mesh" rgba="0.921 0.921 0.921 1" mesh="support2" />
+            <geom type="mesh" rgba="0.921 0.921 0.921 1" mesh="support3" />
+            <geom type="mesh" rgba="0.921 0.921 0.921 1" mesh="support4" />
+            <geom type="mesh" rgba="0.921 0.921 0.921 1" mesh="support5" />
+            <geom type="mesh" rgba="0.921 0.921 0.921 1" mesh="support6" />
+            <geom type="mesh" rgba="0 0 1 1" mesh="motor_plate" material="3dpart"/>
+            <geom type="mesh" rgba="0.521 0.521 0.521 1" mesh="motor" />
+            <geom type="mesh" rgba="0.921 0.921 0.921 1" mesh="shaftR" />
+            <geom type="mesh" rgba="0.894118 0.909804 0.929412 1" mesh="fullyR" />
+            <geom type="mesh" rgba="0.01 0.01 0.01 1" mesh="bolt1" />
+            <geom type="mesh" rgba="0.01 0.01 0.01 1" mesh="bolt2" />
+            <geom type="mesh" rgba="0 0 1 1" mesh="left_zip" material="3dpart"/>
+            <geom type="mesh" rgba="0.921 0.921 0.921 1" mesh="spl1" />
+            <geom type="mesh" rgba="0.921 0.921 0.921 1" mesh="spl2" />
+            <geom type="mesh" rgba="0.921 0.921 0.921 1" mesh="shaftL" />
+            <geom type="mesh" rgba="0.894118 0.909804 0.929412 1" mesh="fullyL" />
+            <geom type="mesh" rgba="0.01 0.01 0.01 1" mesh="belt" contype="0" conaffinity="0" group="1" />
+            <geom type="mesh" rgba="0.01 0.01 0.01 1" mesh="bolt3" />
+            <geom type="mesh" rgba="0.01 0.01 0.01 1" mesh="bolt4" />
+            <geom type="mesh" rgba="0.01 0.01 0.01 1" mesh="bolt5" />
+            <geom type="mesh" rgba="0.01 0.01 0.01 1" mesh="bolt6" />
+            <body name="cartPlate" pos="0 0 0">
+                <inertial pos="-0.000641778 0.0328562 -0.0238529" quat="0.697709 0.123271 -0.113179 0.696561" mass="0.486" diaginertia="0.000536826 0.000527878 0.000278203" />
+                <joint name="cartJoint" type="slide" pos="0 0 0" axis="1 0 0" />
+                <geom type="mesh" rgba="0.01 0.01 0.01 1" mesh="cartPlate" />
+                <geom type="mesh" rgba="0.921 0.921 0.921 1" mesh="wheelLag1" />
+                <geom type="mesh" rgba="0.01 0.01 0.01 1" mesh="wh1" material="3dpart"/>
+                <geom type="mesh" rgba="0.921 0.921 0.921 1" mesh="nut1" />
+                <geom type="mesh" rgba="0.921 0.921 0.921 1" mesh="wheelLag2" />
+                <geom type="mesh" rgba="0.01 0.01 0.01 1" mesh="wh2" material="3dpart"/>
+                <geom type="mesh" rgba="0.921 0.921 0.921 1" mesh="nut2" />
+                <geom type="mesh" rgba="0.921 0.921 0.921 1" mesh="wheelLag3" />
+                <geom type="mesh" rgba="0.01 0.01 0.01 1" mesh="wh3" material="3dpart"/>
+                <geom type="mesh" rgba="0.921 0.921 0.921 1" mesh="nut3" />
+                <geom type="mesh" rgba="0.921 0.921 0.921 1" mesh="wheelLag4" />
+                <geom type="mesh" rgba="0.01 0.01 0.01 1" mesh="wh4" material="3dpart"/>
+                <geom type="mesh" rgba="0.921 0.921 0.921 1" mesh="nut4" />
+                <geom type="mesh" rgba="0 0 1 1" mesh="cart" material="3dpart"/>
+                <geom type="mesh" rgba="0.921 0.921 0.921 1" mesh="csp1" />
+                <geom type="mesh" rgba="0.921 0.921 0.921 1" mesh="csp2" />
+                <geom type="mesh" rgba="0.01 0.01 0.01 1" mesh="cbolt1" />
+                <geom type="mesh" rgba="0.01 0.01 0.01 1" mesh="cbolt2" />
+                <body name="cartShaft" pos="-0.000295182 0.0440975 0.083">
+                    <inertial pos="6.51407e-08 -0.0988795 -0.0153605" quat="0.70715 0.707064 0 0" mass="0.209031904484507" diaginertia="0.000546218 0.000528776 3.87201e-05" />
+                    <joint name="armJoint1" pos="0 0 0" axis="0 0 1" class="arm" />
+                    <geom type="mesh" rgba="0.921 0.921 0.921 1" mesh="cartShaft" />
+                    <geom type="mesh" rgba="0.86666667 0.90980392 1 1" mesh="arm1w" material="3dpart"/>
+                    <geom type="mesh" rgba="0 0 1 1" mesh="arm1b" material="3dpart"/>
+                    <body name="arm2w" pos="0 -0.165 0.00506538">
+                        <inertial pos="4.22529e-10 -0.126718 0.00216703" quat="0.490788 0.509045 -0.509045 0.490788" mass="0.1145259713644" diaginertia="0.000548986 0.00054329 1.09403e-05" />
+                        <joint name="armJoint2" pos="0 0 0" axis="0 0 1" class="arm" />
+                        <geom type="mesh" rgba="0.86666667 0.90980392 1 1" mesh="arm2w" material="3dpart"/>
+                        <geom type="mesh" rgba="0 0 1 1" mesh="arm2b" material="3dpart"/>
+                        <geom type="mesh" mesh="abolt1" material="abolt" />
+                        <geom type="mesh" mesh="abolt2" material="abolt" />
+                        <geom type="mesh" mesh="abolt3" material="abolt" />
+                        <body name="arm3w" pos="0 -0.21 0.0235346">
+                            <inertial pos="0 -0.128496 -0.00363083" quat="0.503518 0.496457 -0.496457 0.503518" mass="0.146790233805106" diaginertia="0.00060915 0.000604009 7.58388e-06" />
+                            <joint name="armJoint3" pos="0 0 0" axis="0 0 1" class="arm" />
+                            <geom type="mesh" rgba="0.86666667 0.90980392 1 1" mesh="arm3w" material="3dpart"/>
+                            <geom type="mesh" rgba="0.8 0.6745 0 1" mesh="weight" />
+                            <geom type="mesh" mesh="abolt4" material="abolt" />
+                            <geom type="mesh" mesh="abolt5" material="abolt" />
+                            <geom type="mesh" mesh="abolt6" material="abolt" />
+                        </body>
+                    </body>
+                </body>
+            </body>
+        </body>
+    </worldbody>
+</mujoco>
