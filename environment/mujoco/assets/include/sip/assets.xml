@@ -1,0 +1,51 @@
+<mujocoinclude>
+
+    <mesh name="base_link" file="sip/base_link.STL" />
+        <mesh name="right_zip" file="sip/right_zip.STL" />
+        <mesh name="support1" file="sip/support1.STL" />
+        <mesh name="support2" file="sip/support2.STL" />
+        <mesh name="support3" file="sip/support3.STL" />
+        <mesh name="support4" file="sip/support4.STL" />
+        <mesh name="support5" file="sip/support5.STL" />
+        <mesh name="support6" file="sip/support6.STL" />
+        <mesh name="motor_plate" file="sip/motor_plate.STL" />
+        <mesh name="motor" file="sip/motor.STL" />
+        <mesh name="shaftR" file="sip/shaftR.STL" />
+        <mesh name="fullyR" file="sip/fullyR.STL" />
+        <mesh name="bolt1" file="sip/bolt1.STL" />
+        <mesh name="bolt2" file="sip/bolt2.STL" />
+        <mesh name="left_zip" file="sip/left_zip.STL" />
+        <mesh name="spl1" file="sip/spl1.STL" />
+        <mesh name="spl2" file="sip/spl2.STL" />
+        <mesh name="shaftL" file="sip/shaftL.STL" />
+        <mesh name="fullyL" file="sip/fullyL.STL" />
+        <mesh name="belt" file="sip/belt.STL" />
+        <mesh name="bolt3" file="sip/bolt3.STL" />
+        <mesh name="bolt4" file="sip/bolt4.STL" />
+        <mesh name="bolt5" file="sip/bolt5.STL" />
+        <mesh name="bolt6" file="sip/bolt6.STL" />
+        <mesh name="cartPlate" file="sip/cartPlate.STL" />
+        <mesh name="wheelLag1" file="sip/wheelLag1.STL" />
+        <mesh name="wh1" file="sip/wh1.STL" />
+        <mesh name="nut1" file="sip/nut1.STL" />
+        <mesh name="wheelLag2" file="sip/wheelLag2.STL" />
+        <mesh name="wh2" file="sip/wh2.STL" />
+        <mesh name="nut2" file="sip/nut2.STL" />
+        <mesh name="wheelLag3" file="sip/wheelLag3.STL" />
+        <mesh name="wh3" file="sip/wh3.STL" />
+        <mesh name="nut3" file="sip/nut3.STL" />
+        <mesh name="wheelLag4" file="sip/wheelLag4.STL" />
+        <mesh name="wh4" file="sip/wh4.STL" />
+        <mesh name="nut4" file="sip/nut4.STL" />
+        <mesh name="cart" file="sip/cart.STL" />
+        <mesh name="csp1" file="sip/csp1.STL" />
+        <mesh name="csp2" file="sip/csp2.STL" />
+        <mesh name="cartShaft" file="sip/cartShaft.STL" />
+        <mesh name="arm1b" file="sip/arm1b.STL" />
+        <mesh name="arm1w" file="sip/arm1w.STL" />
+        <mesh name="arm1bolt" file="sip/arm1bolt.STL" />
+        <mesh name="weight" file="sip/weight.STL" />
+        <mesh name="cbolt1" file="sip/cbolt1.STL" />
+        <mesh name="cbolt2" file="sip/cbolt2.STL" />
+
+</mujocoinclude>
