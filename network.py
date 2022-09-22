@@ -262,7 +262,8 @@ class EQI_GaussianPolicy(nn.Module):
         eqi_feature = self.eqi_input_layer(eqi_state)
         reg_feature = self.reg_input_layer(reg_state)
 
-        multiplier = torch.sign(torch.sum(eqi_feature, dim=1))
+        source = torch.sign(torch.sum(eqi_feature, dim=1))
+        multiplier = torch.where(source == 0., torch.ones_like(source), source)
         multiplier = multiplier.view(-1, 1)
 
         x = self.activation_fc(torch.abs(eqi_feature) + reg_feature)
