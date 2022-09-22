@@ -1,5 +1,6 @@
 import argparse
 import torch
+from sesac import SESAC
 from sac import SAC
 from trainer import Trainer
 from utils import set_seed, make_env
@@ -36,6 +37,7 @@ def get_parameters():
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--env-name', default="TripleInvertedPendulumSwing")
+    parser.add_argument('--alg-name', default="sac")
     parser.add_argument('--random-seed', default=-1, type=int)
     parser.add_argument('--eval_flag', default=True, type=bool)
     parser.add_argument('--eval-freq', default=5000, type=int)
@@ -86,7 +88,12 @@ def main(args):
     eqi_idx = env.eqi_idx
     reg_idx = env.reg_idx
 
-    agent = SAC(args, state_dim, action_dim, eqi_idx, reg_idx, action_bound, device)
+    if args.alg_name == 'sac':
+        agent = SAC(args, state_dim, action_dim, action_bound, device)
+    elif args.alg_name == 'sesac':
+        agent = SESAC(args, state_dim, action_dim, eqi_idx, reg_idx, action_bound, device)
+    else:
+        raise ValueError('Invalid algorithm name.')
 
     trainer = Trainer(env, eval_env, agent, args)
     trainer.run()

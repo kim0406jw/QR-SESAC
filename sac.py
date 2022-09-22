@@ -1,14 +1,12 @@
 import torch
 import torch.nn.functional as F
-import numpy as np
 from replay_memory import ReplayMemory
 from network import Twin_Q_net, GaussianPolicy
 from utils import hard_update, soft_update, cal_critic_loss
-import time
 
 
 class SAC:
-    def __init__(self, args, state_dim, action_dim, inv_idx, reg_idx, action_bound, device):
+    def __init__(self, args, state_dim, action_dim, action_bound, device):
         self.args = args
 
         self.state_dim = state_dim
@@ -24,9 +22,9 @@ class SAC:
 
         self.n_supports = args.n_supports
 
-        self.actor = GaussianPolicy(args, inv_idx, reg_idx, action_dim, action_bound, args.hidden_dims, F.relu, device).to(device)
-        self.critic = Twin_Q_net(args, inv_idx, reg_idx, action_dim, (512, 512, 512), F.relu, device).to(device)
-        self.target_critic = Twin_Q_net(args, inv_idx, reg_idx, action_dim,  (512, 512, 512), F.relu, device).to(device)
+        self.actor = GaussianPolicy(args, state_dim, action_dim, action_bound, args.hidden_dims, F.relu, device).to(device)
+        self.critic = Twin_Q_net(args, state_dim, action_dim, (512, 512, 512), F.relu, device).to(device)
+        self.target_critic = Twin_Q_net(args, state_dim, action_dim,  (512, 512, 512), F.relu, device).to(device)
 
         self.actor_optimizer = torch.optim.Adam(self.actor.parameters(), lr=args.actor_lr)
         self.critic_optimizer = torch.optim.Adam(self.critic.parameters(), lr=args.critic_lr)

@@ -1,8 +1,6 @@
 import numpy as np
 import torch
-from utils import log_to_txt
-from collections import deque
-
+from utils import log_to_txt, Logger
 
 class Trainer:
     def __init__(self, env, eval_env, agent, args):
@@ -11,6 +9,7 @@ class Trainer:
         self.agent = agent
         self.env = env
         self.eval_env = eval_env
+        self.logger = Logger(args)
 
         self.start_step = args.start_step
         self.update_after = args.update_after
@@ -51,18 +50,18 @@ class Trainer:
             reward_list.append(epi_reward)
 
         if self.args.log:
-            log_to_txt(self.args, self.total_step, sum(reward_list)/len(reward_list))
+            self.logger.log_eval(self.episode, self.total_step, reward_list)
         print("Eval  |  total_step {}  |  episode {}  |  Average Reward {:.2f}  |  Max reward: {:.2f}  |  "
               "Min reward: {:.2f}".format(self.total_step, self.episode, sum(reward_list)/len(reward_list),
-                                               max(reward_list), min(reward_list), np.std(reward_list)))
+                                          max(reward_list), min(reward_list), np.std(reward_list)))
 
-        torch.save(self.agent.critic.state_dict(), './save/model/critic.pt')
-        torch.save(self.agent.target_critic.state_dict(), './save/model/target_critic.pt')
-        torch.save(self.agent.actor.state_dict(), './save/model/actor.pt')
+        torch.save(self.agent.critic.state_dict(), self.logger.root_log+'critic.pt')
+        torch.save(self.agent.target_critic.state_dict(), self.logger.root_log+'target_critic.pt')
+        torch.save(self.agent.actor.state_dict(), self.logger.root_log+'actor.pt')
         if sum(reward_list)/len(reward_list) >  self.best_reward:
-            torch.save(self.agent.critic.state_dict(), './save/best_model/critic.pt')
-            torch.save(self.agent.target_critic.state_dict(), './save/best_model/target_critic.pt')
-            torch.save(self.agent.actor.state_dict(), './save/best_model/actor.pt')
+            torch.save(self.agent.critic.state_dict(), self.logger.root_log+'best_critic.pt')
+            torch.save(self.agent.target_critic.state_dict(), self.logger.root_log+'best_target_critic.pt')
+            torch.save(self.agent.actor.state_dict(), self.logger.root_log+'best_actor.pt')
 
     def run(self):
         # Train-process start.
@@ -115,12 +114,3 @@ class Trainer:
                 # Raise finish_flag.
                 if self.total_step == self.max_step:
                     self.finish_flag = True
-
-
-
-
-
-
-
-
-

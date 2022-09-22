@@ -1,7 +1,7 @@
 import numpy as np
 from math import sin, cos
 import mujoco
-#import mujoco_viewer
+# import mujoco_viewer
 import glfw, time
 from copy import deepcopy
 
@@ -280,33 +280,33 @@ class TripleInvertedPendulumSwing:
     #     F = torque/r
     #     return F
 
-    def render(self, mouse_control=False):
-        if self.viewer is None:
-            self._viewer_setup()
-        if not self.viewer.is_alive:
-            self._viewer_reset()
-        if not mouse_control:
-            qpos = [self.x[0], self.x[1]-np.pi, self.x[2] - self.x[1], self.x[3] - self.x[2]]
-            qvel = [self.x[4], self.x[5], self.x[6]-self.x[5], self.x[7]-self.x[6]]
-            self.data.qpos = qpos
-            self.data.qvel = qvel
-        mujoco.mj_forward(self.model, self.data)
-        self.viewer.render()
+    # def render(self, mouse_control=False):
+    #     if self.viewer is None:
+    #         self._viewer_setup()
+    #     if not self.viewer.is_alive:
+    #         self._viewer_reset()
+    #     if not mouse_control:
+    #         qpos = [self.x[0], self.x[1]-np.pi, self.x[2] - self.x[1], self.x[3] - self.x[2]]
+    #         qvel = [self.x[4], self.x[5], self.x[6]-self.x[5], self.x[7]-self.x[6]]
+    #         self.data.qpos = qpos
+    #         self.data.qvel = qvel
+    #     mujoco.mj_forward(self.model, self.data)
+    #     self.viewer.render()
 
-    def _viewer_setup(self):
-        self.model = mujoco.MjModel.from_xml_path('./environment/mujoco/assets/tip.xml')
-        self.data = mujoco.MjData(self.model)
-        self._viewer_reset()
-
-    def _viewer_reset(self):
-        self.viewer = Viewer(model=self.model, data=self.data,
-                             width=1000, height=600,
-                             title='TripleInvertedPendulumSwing',
-                             hide_menus=True)
-        self.viewer.cam.distance = self.model.stat.extent * 1.8
-        self.viewer.cam.lookat[2] -= 0
-        self.viewer.cam.elevation += 35
-        self.viewer.cam.azimuth = 115
+    # def _viewer_setup(self):
+    #     self.model = mujoco.MjModel.from_xml_path('./environment/mujoco/assets/tip.xml')
+    #     self.data = mujoco.MjData(self.model)
+    #     self._viewer_reset()
+    #
+    # def _viewer_reset(self):
+    #     self.viewer = Viewer(model=self.model, data=self.data,
+    #                          width=1000, height=600,
+    #                          title='TripleInvertedPendulumSwing',
+    #                          hide_menus=True)
+    #     self.viewer.cam.distance = self.model.stat.extent * 1.8
+    #     self.viewer.cam.lookat[2] -= 0
+    #     self.viewer.cam.elevation += 35
+    #     self.viewer.cam.azimuth = 115
 
 '''
 class Viewer(mujoco_viewer.MujocoViewer):

@@ -2,6 +2,8 @@ import numpy as np
 import random
 import torch
 import torch.nn as nn
+import os
+import pandas as pd
 
 from environment.inverted_pendulum import InvertedPendulumSwing
 from environment.triple_inverted_pendulum import TripleInvertedPendulumSwing
@@ -126,3 +128,28 @@ def log_to_txt(args, total_step, result):
     log = str(total_step) + ' ' + str(result) + '\n'
     f.write(log)
     f.close()
+
+class Logger:
+
+    def __init__(self, config):
+        self.root_log = "./log/%s/%s/%s/" % (config.env_name, config.alg_name, config.random_seed)
+        self.config = config
+        self.create_dir()
+
+    def create_dir(self):
+        if not os.path.isdir("./log/%s" % self.config.env_name): os.mkdir("./log/%s" % self.config.env_name)
+        if not os.path.isdir("./log/%s/%s" % (self.config.env_name, self.config.alg_name)): os.mkdir("./log/%s/%s" % (self.config.env_name, self.config.alg_name))
+        if not os.path.isdir(self.root_log[:-1]): os.mkdir(self.root_log[:-1])
+        self.monitoring_file = self.root_log + "learning_curve.csv"
+        if self.config.log:
+            file = pd.DataFrame(columns=["Episode", "Step", "Min", "Max", "Average"])
+            file.to_csv(self.monitoring_file, index=False)
+
+    def log_eval(self, epi, step, reward_list):
+        avg_reward = sum(reward_list) / len(reward_list)
+        min_reward = min(reward_list)
+        max_reward = max(reward_list)
+        if self.config.log:
+            file = pd.read_csv(self.monitoring_file)
+            file.loc[len(file)] = [epi, step, min_reward, max_reward, avg_reward]
+            file.to_csv(self.monitoring_file, index=False)
